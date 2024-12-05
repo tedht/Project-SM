@@ -1,0 +1,11 @@
+#pragma once
+
+enum class MPType 
+{ 
+	LINEAR,
+	CIRCULAR,
+	CIRCULAR_ARC,
+	PARABOLIC_CURVE,
+	SINUSOIDAL_CURVE,
+	LEFT_RIGHT_LOOP
+};
