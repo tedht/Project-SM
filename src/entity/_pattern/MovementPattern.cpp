@@ -146,15 +146,15 @@ void CircularArcMP::setDesiredArcAngle(float degrees)
 
 }
 
-/* Sinusoidal Curve */
-SinusoidalCurveMP::SinusoidalCurveMP(Game *game)
+/* Sinusoidal Arc */
+SinusoidalArcMP::SinusoidalArcMP(Game *game)
 : MovementPattern(game), 
   startX(0), startY(0), speedX(50.0f), amplitude(100.0f), frequency(0.1f)
 {
-	type = MPType::SINUSOIDAL_CURVE;
+	type = MPType::SINUSOIDAL_ARC;
 }
 
-void SinusoidalCurveMP::Update(float deltaTime)
+void SinusoidalArcMP::Update(float deltaTime)
 {
 	owner->addX(speedX * deltaTime);
     float xOffset = owner->getX() - startX;
@@ -162,7 +162,7 @@ void SinusoidalCurveMP::Update(float deltaTime)
     owner->setY(newY);
 }
 
-void SinusoidalCurveMP::Init()
+void SinusoidalArcMP::Init()
 {
 	startX    = 0;
 	startY    = 0;
@@ -171,25 +171,25 @@ void SinusoidalCurveMP::Init()
 	frequency = 0.1f;
 }
 
-void SinusoidalCurveMP::Setup()
+void SinusoidalArcMP::Setup()
 {
 	startX = owner->getX();
 	startY = owner->getY();
 }
 
-void SinusoidalCurveMP::setSpeedX   (float spdx) { speedX    = spdx;}
-void SinusoidalCurveMP::setAmplitude(float amp)  { amplitude = amp; }
-void SinusoidalCurveMP::setFrequency(float freq) { frequency = freq;}
+void SinusoidalArcMP::setSpeedX   (float spdx) { speedX    = spdx;}
+void SinusoidalArcMP::setAmplitude(float amp)  { amplitude = amp; }
+void SinusoidalArcMP::setFrequency(float freq) { frequency = freq;}
 
 
-/* Parabolic Curve */
-ParabolicCurveMP::ParabolicCurveMP(Game *game) 
+/* Parabolic Arc */
+ParabolicArcMP::ParabolicArcMP(Game *game) 
 : MovementPattern(game), startX(0), startY(0), curvature(0.01f), speedX(50.0f)
 {
-	type = MPType::PARABOLIC_CURVE;
+	type = MPType::PARABOLIC_ARC;
 }
 
-void ParabolicCurveMP::Update(float deltaTime)
+void ParabolicArcMP::Update(float deltaTime)
 {
 	owner->addX(speedX * deltaTime);
 	float xOffset = owner->getX() - startX;
@@ -197,7 +197,7 @@ void ParabolicCurveMP::Update(float deltaTime)
     owner->setY(newY);
 }
 
-void ParabolicCurveMP::Init()
+void ParabolicArcMP::Init()
 {
 	startX    = 0;
 	startY    = 0;
@@ -205,14 +205,14 @@ void ParabolicCurveMP::Init()
 	speedX    = 50.0f;
 }
 
-void ParabolicCurveMP::Setup()
+void ParabolicArcMP::Setup()
 {
 	startX = owner->getX();
 	startY = owner->getY();
 }
 
-void ParabolicCurveMP::setSpeedX   (float spdx) { speedX    = spdx;}
-void ParabolicCurveMP::setCurvature(float curv) { curvature = curv;}
+void ParabolicArcMP::setSpeedX   (float spdx) { speedX    = spdx;}
+void ParabolicArcMP::setCurvature(float curv) { curvature = curv;}
 
 
 /* Left Right Loop */

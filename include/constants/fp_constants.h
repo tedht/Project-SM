@@ -2,6 +2,7 @@
 
 enum class FPType 
 { 
+	STRAIGHT,
 	TARGETED,  
 	STAR, 
 	SPIN,

@@ -108,11 +108,6 @@ public:
 	void SpawnEnemy (Enemy*  enemy);
 	void SpawnBullet(Bullet* bullet);
 
-	void releaseBullet(Bullet*          bullet);
-	void releaseEnemy (Enemy*           enemy );
-	void releaseFP    (FiringPattern*   fp    );
-	void releaseMP    (MovementPattern* mp    );
-
 	int GetGameX     ();
 	int GetGameY     ();
 	int GetGameWidth ();
@@ -125,11 +120,37 @@ public:
 	void setStage(Stage stage);
 	void setPhase(Phase phase);
 
+	/* *** */
+	/* GET */
+	/* *** */
+
+	/* Entities */
 	Bullet*        acquireBullet       ();
 	GenericEnemy1* acquireGenericEnemy1();
-	StarFP*        acquireStarFP       ();
-	SpinFP*        acquireSpinFP       ();
-	CircularMP*    acquireCircularMP   ();
+	GenericEnemy2* acquireGenericEnemy2();
+
+	/* Firing Patterns */
+	StraightFP* acquireStraightFP();
+	TargetedFP* acquireTargetedFP();
+	StarFP*     acquireStarFP    ();
+	SpinFP*     acquireSpinFP    ();
+
+	/* Movement Patterns */	
+	LinearMP*        acquireLinearMP       ();
+	CircularMP*      acquireCircularMP     ();	
+	CircularArcMP*   acquireCircularArcMP  ();	
+	SinusoidalArcMP* acquireSinusoidalArcMP();
+	ParabolicArcMP*  acquireParabolicArcMP ();
+	LeftRightLoopMP* acquireLeftRightLoopMP();
+
+	/* ******* */
+	/* RELEASE */
+	/* ******* */
+
+	void releaseBullet(Bullet*          bullet);
+	void releaseEnemy (Enemy*           enemy );
+	void releaseFP    (FiringPattern*   fp    );
+	void releaseMP    (MovementPattern* mp    );
 
 	Texture* getTexture(TextureID id);
 

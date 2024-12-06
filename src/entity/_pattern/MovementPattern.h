@@ -84,8 +84,8 @@ public:
 	void setDesiredArcAngle(float degrees);
 };
 
-/* Sinusoidal Curve */
-class SinusoidalCurveMP : public MovementPattern
+/* Sinusoidal Arc */
+class SinusoidalArcMP : public MovementPattern
 {
 private:
 	float startX;
@@ -94,7 +94,7 @@ private:
 	float amplitude;
 	float frequency;
 public:
-    SinusoidalCurveMP(Game* game);
+    SinusoidalArcMP(Game* game);
 
 	void Update(float deltaTime);
 
@@ -106,8 +106,8 @@ public:
 	void setFrequency(float amp);
 };
 
-/* Parabolic Curve */
-class ParabolicCurveMP : public MovementPattern
+/* Parabolic Arc */
+class ParabolicArcMP : public MovementPattern
 {
 private:
 	float startX;
@@ -115,7 +115,7 @@ private:
 	float curvature;
 	float speedX;
 public:
-    ParabolicCurveMP(Game* game);
+    ParabolicArcMP(Game* game);
 
 	void Update(float deltaTime);
 

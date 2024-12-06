@@ -7,7 +7,7 @@ namespace SpawnerConfig
 		STRAIGHT,
 		TARGETED,
 		ROTATING,
-		PARABOLIC_CURVE,
+		PARABOLIC_ARC,
 		COUNT,
 	};
 

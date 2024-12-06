@@ -65,14 +65,15 @@ void Enemy::Draw()
 {
 	SpriteHandler::Draw(position);
 
-	if(firingPattern != nullptr)
-		firingPattern->Draw();
-
 	//Hitbox
 	if(game->isDebug())
 	{
 		DrawCircle(position.x, position.y, hitbox/2, BLUE);
 	}
+
+	
+	if(firingPattern != nullptr)
+		firingPattern->Draw();
 }
 
 void Enemy::Shoot()
@@ -93,8 +94,11 @@ void Enemy::Clear()
 
 void Enemy::Spawn()
 {
-	firingPattern->Setup();
-	movementPattern->Setup();
+	if(firingPattern != nullptr)
+		firingPattern->Setup();
+
+	if(movementPattern != nullptr)
+		movementPattern->Setup();
 }
 
 EnemyConfig::Type Enemy::getType  (){return type;  }

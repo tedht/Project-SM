@@ -97,6 +97,16 @@ public:
 /* FIRING PATTERN DERIVED CLASSES */
 /* ******************************* */
 
+/* Straight Firing Pattern */
+class StraightFP : public SingleSpawnerFP
+{
+public:
+	StraightFP(Game* game);
+	void Update(float deltaTime);
+	void Setup ();
+};
+
+
 /* Targeted Firing Pattern */
 class TargetedFP : public SingleSpawnerFP
 {

@@ -11,17 +11,6 @@
 #include "../../entity/_pattern/MovementPattern.h"
 #include "../../entity/player/Player.h"
 
-constexpr int BULLET_COUNT = 100000;
-constexpr int GE1_COUNT    = 100;
-constexpr int GE2_COUNT    = 100;
-
-constexpr int STAR_FP_COUNT     = 100;
-constexpr int SPIN_FP_COUNT     = 100;
-constexpr int TARGETED_FP_COUNT = 100;
-
-constexpr int LINEAR_MP_COUNT   = 100;
-constexpr int CIRCULAR_MP_COUNT = 100;
-
 class Game;
 
 template <typename T, size_t poolSize = 10>
@@ -47,21 +36,27 @@ class PoolManager
 {
 private:
 	/* Entities */
-	Pool<Bullet,        BULLET_COUNT> bulletPool;
-    Pool<GenericEnemy1, GE1_COUNT   > GE1Pool;
-    Pool<GenericEnemy2, GE2_COUNT   > GE2Pool;
+	Pool<Bullet,        100000> bulletPool;
+    Pool<GenericEnemy1, 100> GE1Pool;
+    Pool<GenericEnemy2, 100> GE2Pool;
 
 	/* Firing Patterns */
-	Pool<StarFP,     STAR_FP_COUNT    >     starFPPool;
-	Pool<SpinFP,     SPIN_FP_COUNT    >     spinFPPool;
-	Pool<TargetedFP, TARGETED_FP_COUNT> targetedFPPool;
+	Pool<StraightFP, 100> straightFPPool;
+	Pool<TargetedFP, 100> targetedFPPool;
+	Pool<StarFP,     100> starFPPool;
+	Pool<SpinFP,     100> spinFPPool;
 
 	/* Movement Patterns */
-	Pool<LinearMP,   LINEAR_MP_COUNT  >   linearMPPool;
-	Pool<CircularMP, CIRCULAR_MP_COUNT> circularMPPool;
+	Pool<LinearMP,        100> linearMPPool;
+	Pool<CircularMP,      100> circularMPPool;
+	Pool<CircularArcMP,   100> circularArcMPPool;
+	Pool<SinusoidalArcMP, 100> sinusoidalArcMPPool;
+	Pool<ParabolicArcMP,  100> parabolicArcMPPool;
+	Pool<LeftRightLoopMP, 100> leftRightLoopMPPool;
 
 public:
 	PoolManager(Game* game);
+	
 	/* *** */
 	/* GET */
 	/* *** */
@@ -72,13 +67,18 @@ public:
 	GenericEnemy2* acquireGenericEnemy2();
 
 	/* Firing Patterns */
-	TargetedFP*    acquireTargetedFP   ();
-	StarFP*        acquireStarFP       ();
-	SpinFP*        acquireSpinFP       ();
+	StraightFP* acquireStraightFP   ();
+	TargetedFP* acquireTargetedFP   ();
+	StarFP*     acquireStarFP       ();
+	SpinFP*     acquireSpinFP       ();
 
 	/* Movement Patterns */	
-	LinearMP*      acquireLinearMP     ();
-	CircularMP*    acquireCircularMP   ();	
+	LinearMP*        acquireLinearMP       ();
+	CircularMP*      acquireCircularMP     ();	
+	CircularArcMP*   acquireCircularArcMP  ();	
+	SinusoidalArcMP* acquireSinusoidalArcMP();
+	ParabolicArcMP*  acquireParabolicArcMP ();
+	LeftRightLoopMP* acquireLeftRightLoopMP();
 
 
 	/* ******* */
@@ -88,18 +88,12 @@ public:
 	/* Entities */
 	void releaseInUseBullet (Bullet* bullet);
 	void releaseInUseEnemy  (Enemy*  enemy);
-	//void releaseInUseGenericEnemy1(GenericEnemy1* ent);
-	//void releaseInUseGenericEnemy2(GenericEnemy2* ent);
 
 	/* Firing Patterns */	
 	void releaseInUseFP(FiringPattern* fp);
-	//void releaseInUseStarFP    (StarFP*     fp);
-	//void releaseInUseTargetedFP(TargetedFP* fp);
 
 	/* Movement Patterns */
 	void releaseInUseMP(MovementPattern* fp);
-	//void releaseInUseLinearMP  (LinearMP*   mp);
-	//void releaseInUseCircularMP(CircularMP* mp);
 
 	~PoolManager();
 };

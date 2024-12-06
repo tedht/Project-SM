@@ -66,9 +66,12 @@ bulletPool(game),
 /* Enemies */
 GE1Pool(game), GE2Pool(game),
 /* Firing Patterns*/
-starFPPool(game), spinFPPool(game), targetedFPPool(game),
+straightFPPool(game), targetedFPPool(game), 
+starFPPool    (game), spinFPPool    (game),
 /* Movement Patterns*/
-linearMPPool(game), circularMPPool(game)
+linearMPPool      (game), circularMPPool     (game), 
+circularArcMPPool (game), sinusoidalArcMPPool(game), 
+parabolicArcMPPool(game), leftRightLoopMPPool(game)
 {
 }
 
@@ -83,13 +86,18 @@ GenericEnemy1* PoolManager::acquireGenericEnemy1() { return GE1Pool       .acqui
 GenericEnemy2* PoolManager::acquireGenericEnemy2() { return GE2Pool       .acquireObject(); }
 
 /* Firing Patterns */
-StarFP*        PoolManager::acquireStarFP       () { return starFPPool    .acquireObject(); }
-SpinFP*        PoolManager::acquireSpinFP       () { return spinFPPool    .acquireObject(); }
-TargetedFP*    PoolManager::acquireTargetedFP   () { return targetedFPPool.acquireObject(); }
+StraightFP* PoolManager::acquireStraightFP() { return straightFPPool.acquireObject(); }
+TargetedFP* PoolManager::acquireTargetedFP() { return targetedFPPool.acquireObject(); }
+StarFP*     PoolManager::acquireStarFP    () { return starFPPool    .acquireObject(); }
+SpinFP*     PoolManager::acquireSpinFP    () { return spinFPPool    .acquireObject(); }
 
 /* Movement Patterns */
-LinearMP*      PoolManager::acquireLinearMP     () { return linearMPPool  .acquireObject(); }
-CircularMP*    PoolManager::acquireCircularMP   () { return circularMPPool.acquireObject(); }
+LinearMP*        PoolManager::acquireLinearMP       () { return linearMPPool       .acquireObject(); }
+CircularMP*      PoolManager::acquireCircularMP     () { return circularMPPool     .acquireObject(); }
+CircularArcMP*   PoolManager::acquireCircularArcMP  () { return circularArcMPPool  .acquireObject(); }
+SinusoidalArcMP* PoolManager::acquireSinusoidalArcMP() { return sinusoidalArcMPPool.acquireObject(); }
+ParabolicArcMP*  PoolManager::acquireParabolicArcMP () { return parabolicArcMPPool .acquireObject(); }
+LeftRightLoopMP* PoolManager::acquireLeftRightLoopMP() { return leftRightLoopMPPool.acquireObject(); }
 
 /* ******* */
 /* RELEASE */
@@ -116,10 +124,14 @@ void PoolManager::releaseInUseFP(FiringPattern *fp)
 {
 	switch (fp->getType())
 	{
+	case FPType::STRAIGHT:
+		straightFPPool.releaseInUseObject(static_cast<StraightFP*>(fp)); break;
 	case FPType::TARGETED:
 		targetedFPPool.releaseInUseObject(static_cast<TargetedFP*>(fp)); break;
 	case FPType::STAR:
 		starFPPool    .releaseInUseObject(static_cast<StarFP*>    (fp)); break;
+	case FPType::SPIN:
+		spinFPPool    .releaseInUseObject(static_cast<SpinFP*>    (fp)); break;
 	default:
 		break;
 	}
@@ -131,9 +143,17 @@ void PoolManager::releaseInUseMP(MovementPattern *mp)
 	switch (mp->getType())
 	{
 	case MPType::LINEAR:
-		linearMPPool  .releaseInUseObject(static_cast<LinearMP*>  (mp)); break;
+		linearMPPool       .releaseInUseObject(static_cast<LinearMP*>       (mp)); break;
 	case MPType::CIRCULAR:
-		circularMPPool.releaseInUseObject(static_cast<CircularMP*>(mp)); break;
+		circularMPPool     .releaseInUseObject(static_cast<CircularMP*>     (mp)); break;
+	case MPType::CIRCULAR_ARC:
+		circularArcMPPool  .releaseInUseObject(static_cast<CircularArcMP*>  (mp)); break;
+	case MPType::SINUSOIDAL_ARC:
+		sinusoidalArcMPPool.releaseInUseObject(static_cast<SinusoidalArcMP*>(mp)); break;
+	case MPType::PARABOLIC_ARC:
+		parabolicArcMPPool .releaseInUseObject(static_cast<ParabolicArcMP*> (mp)); break;
+	case MPType::LEFT_RIGHT_LOOP:
+		leftRightLoopMPPool.releaseInUseObject(static_cast<LeftRightLoopMP*>(mp)); break;
 	default:
 		break;
 	}

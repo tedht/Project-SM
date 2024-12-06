@@ -21,10 +21,10 @@ void FiringPattern::Init()
 	shootCooldown = SpawnerConfig::DEFAULT_COOLDOWN;
 	bulletSpeed   = BulletConfig::DEFAULT_BULLET_SPEED;
 }
-FPType FiringPattern::getType (){return type;  }
+FPType FiringPattern::getType (){ return type; }
 
-void FiringPattern::setOwner(Enemy* owner)         {this->owner = owner;}
-void FiringPattern::setType(FPType type){this->type  = type; }
+void FiringPattern::setOwner(Enemy* owner) { this->owner = owner; }
+void FiringPattern::setType (FPType type)  { this->type  = type;  }
 
 void FiringPattern::setShootCooldown(float shootCooldown) { this->shootCooldown = shootCooldown; }
 void FiringPattern::setBulletSpeed  (float bulletSpeed)   { this->bulletSpeed = bulletSpeed; }
@@ -93,6 +93,32 @@ void MultiSpawnerFP::setSpawnerCount(int newSpawnerCount)
 MultiSpawnerFP::~MultiSpawnerFP(){ for(auto* spawner : spawners) delete spawner; }
 
 /* FIRING PATTERN DERIVED CLASSES*/
+
+// Straight
+StraightFP::StraightFP(Game *game) : SingleSpawnerFP(game)
+{
+	type = FPType::STRAIGHT;
+	spawner = new StraightSpawner(game);
+}
+
+void StraightFP::Update(float deltaTime)
+{
+	spawner->setPosition(owner->getPosition());
+	spawner->setRotation(owner->getRotation());
+	spawner->Update(deltaTime);
+}
+
+void StraightFP::Setup()
+{
+	Vector2 spawnerPos = owner->getPosition();
+
+	spawner->Init(BulletConfig::Type::MEDIUM,
+				  bulletSpeed,
+				  spawnerPos, 
+				  owner->getRotation(),  
+				  shootCooldown);
+}
+
 // TARGETED
 TargetedFP::TargetedFP(Game* game) : SingleSpawnerFP(game)
 {
@@ -102,13 +128,13 @@ TargetedFP::TargetedFP(Game* game) : SingleSpawnerFP(game)
 
 void TargetedFP::Update(float deltaTime)
 {
-	spawner->setPosition((Vector2){owner->getPosition().x, owner->getPosition().y + 25});
+	spawner->setPosition(owner->getPosition());
 	spawner->Update(deltaTime);
 }
 
 void TargetedFP::Setup()
 {
-	Vector2 spawnerPos = (Vector2){owner->getPosition().x, owner->getPosition().y + 25};
+	Vector2 spawnerPos = owner->getPosition();
 
 	spawner->Init(BulletConfig::Type::MEDIUM,
 				  bulletSpeed,
@@ -135,15 +161,15 @@ void StarFP::Init()
 
 void StarFP::Update(float deltaTime)
 {
-	float rotation = owner->getRotation();
+	float rotation = 0;
 	float angleRad;
 	Vector2 spawnerPos;
 
 	for(int i = 0; i < spawnerCount; i++)
 	{
-		angleRad = rotation * PI / 180.0f * PI / 180.0f;
-		spawnerPos.x = owner->getPosition().x + radius * cos(angleRad);
-		spawnerPos.y = owner->getPosition().y + radius * sin(angleRad);
+		angleRad = rotation * PI / 180.0f;
+		spawnerPos.x = owner->getX() + radius * cos(angleRad);
+		spawnerPos.y = owner->getY() + radius * sin(angleRad);
 		
 		spawners[i]->setPosition(spawnerPos);
 		spawners[i]->Update(deltaTime);

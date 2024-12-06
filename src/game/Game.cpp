@@ -189,13 +189,20 @@ void Game::UpdateTimers()
 	if(hitTimer  < Gameplay::HIT_COOLDOWN)   hitTimer  += frameTime;
 }
 
-void Game::SpawnEnemy (Enemy*  enemy)  { inUseEnemies.push_back(enemy); enemy->Spawn(); }
-void Game::SpawnBullet(Bullet* bullet) { inUseBullets.push_back(bullet); }
-
-void Game::releaseBullet(Bullet*          bullet) { poolMgr.releaseInUseBullet(bullet); }
-void Game::releaseEnemy (Enemy*           enemy ) { poolMgr.releaseInUseEnemy (enemy ); }
-void Game::releaseFP    (FiringPattern*   fp    ) { poolMgr.releaseInUseFP    (fp    ); }
-void Game::releaseMP    (MovementPattern* mp    ) { poolMgr.releaseInUseMP    (mp    ); }
+void Game::SpawnEnemy (Enemy*  enemy)  
+{ 
+	if(enemy != nullptr)
+	{
+		inUseEnemies.push_back(enemy); enemy->Spawn();
+	} 
+}
+void Game::SpawnBullet(Bullet* bullet) 
+{ 
+	if(bullet != nullptr)
+	{
+		inUseBullets.push_back(bullet);
+	}
+}
 
 void Game::Draw()
 {
@@ -289,11 +296,39 @@ Phase Game::getPhase() { return phase;   }
 void Game::setStage(Stage stage) { this->stage = stage; }
 void Game::setPhase(Phase phase) { this->phase = phase; }
 
-Bullet*        Game::acquireBullet       () { return poolMgr.acquireBullet       (); }
+
+/* *** */
+/* GET */
+/* *** */
+
+/* Bullets */
+Bullet*        Game::acquireBullet       () { return poolMgr.acquireBullet(); }
+/* Enemies */
 GenericEnemy1* Game::acquireGenericEnemy1() { return poolMgr.acquireGenericEnemy1(); }
-StarFP*        Game::acquireStarFP       () { return poolMgr.acquireStarFP       (); }
-SpinFP*        Game::acquireSpinFP       () { return poolMgr.acquireSpinFP       (); }
-CircularMP*    Game::acquireCircularMP   () { return poolMgr.acquireCircularMP   (); }
+GenericEnemy2* Game::acquireGenericEnemy2() { return poolMgr.acquireGenericEnemy2(); }
+
+/* Firing Patterns */
+StraightFP* Game::acquireStraightFP() { return poolMgr.acquireStraightFP(); }
+TargetedFP* Game::acquireTargetedFP() { return poolMgr.acquireTargetedFP(); }
+StarFP*     Game::acquireStarFP    () { return poolMgr.acquireStarFP    (); }
+SpinFP*     Game::acquireSpinFP    () { return poolMgr.acquireSpinFP    (); }
+
+/* Movement Patterns */
+LinearMP*        Game::acquireLinearMP       () { return poolMgr.acquireLinearMP       (); }
+CircularMP*      Game::acquireCircularMP     () { return poolMgr.acquireCircularMP     (); }
+CircularArcMP*   Game::acquireCircularArcMP  () { return poolMgr.acquireCircularArcMP  (); }
+SinusoidalArcMP* Game::acquireSinusoidalArcMP() { return poolMgr.acquireSinusoidalArcMP(); }
+ParabolicArcMP*  Game::acquireParabolicArcMP () { return poolMgr.acquireParabolicArcMP (); }
+LeftRightLoopMP* Game::acquireLeftRightLoopMP() { return poolMgr.acquireLeftRightLoopMP(); }
+
+/* ******* */
+/* RELEASE */
+/* ******* */
+
+void Game::releaseBullet(Bullet*          bullet) { poolMgr.releaseInUseBullet(bullet); }
+void Game::releaseEnemy (Enemy*           enemy ) { poolMgr.releaseInUseEnemy (enemy ); }
+void Game::releaseFP    (FiringPattern*   fp    ) { poolMgr.releaseInUseFP    (fp    ); }
+void Game::releaseMP    (MovementPattern* mp    ) { poolMgr.releaseInUseMP    (mp    ); }
 
 Texture2D* Game::getTexture(TextureID id){ return textureMgr.getTexture(id); }
 
