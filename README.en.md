@@ -42,7 +42,7 @@ speeds to simulate a 3D effect
 
 To launch the game, click on the provided game.exe located in the root directory of the project.
 
-## Compiling the application
+## Compiling and Running the application
 Note that this project has only been tested on Windows. It is most likely not possible
 to compile it on any other platform.
 
@@ -79,9 +79,11 @@ left to do is to type the following in the console :
 ```bash
 make
 ```
-
-Note that the game.exe will be created in the build directory. 
+A game.exe file will be created in the build directory. 
 **You must place the game.exe in the root directory of the project, other wise the assets won't load.**
+
+### Using the provided game.exe file
+If you are only interested in running the application, a game.zip file containing a working version of game.exe is provided. Simply extract the file to the root directory, then click on game.exe to run the application.
 
 ## Authors
 

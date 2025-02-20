@@ -95,5 +95,7 @@ public:
 	/* Movement Patterns */
 	void releaseInUseMP(MovementPattern* fp);
 
+	void releaseInUseObj(PoolObject* obj);
+
 	~PoolManager();
 };

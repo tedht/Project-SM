@@ -159,6 +159,11 @@ void PoolManager::releaseInUseMP(MovementPattern *mp)
 	}
 }
 
+void PoolManager::releaseInUseObj(PoolObject *obj)
+{
+	
+}
+
 PoolManager::~PoolManager()
 {
 }

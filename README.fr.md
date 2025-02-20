@@ -34,7 +34,7 @@ Améliore la profondeur visuelle avec des arrière-plans en défilement parallax
 
 Pour lancer le jeu, cliquez sur le fichier game.exe fourni situé dans le répertoire racine du projet.
 
-## Compiler l'application
+## Compiler et lancer l'application
 Notez que ce projet n'a été testé que sous Windows. Il est très probable qu'il ne soit pas possible de le compiler sur une autre plateforme.
 
 ### Prérequis
@@ -49,7 +49,7 @@ Ce projet a été réalisé en utilisant vscode. Adaptez simplement les fichiers
 
 Ensuite, lancez simplement le projet en utilisant le mode de compilation souhaité (Debug ou Run).
 
-### Utilisation de CMake
+### En utilisant CMake
 
 Alternativement, il est possible de compiler le projet en utilisant CMake :
 
@@ -69,9 +69,11 @@ Si tout se passe bien, un fichier Make sera créé dans le répertoire de build.
 make
 ```
 
-Notez que le fichier game.exe sera créé dans le répertoire de build. 
+Un fichier game.exe sera créé dans le répertoire de build. 
 **Vous devez placer le game.exe dans le répertoire racine du projet, sinon les assets ne seront pas chargés.**
 
+### En utilisant le fichier game.exe fourni
+Si vous souhaitez uniquement lancer l'application, Un fichier game.zip contenant une version fonctionnelle de game.exe est fourni. Il suffit d'extraire le fichier dans le répertoire racine, puis de cliquer sur game.exe pour exécuter l'application.
 
 ## Auteurs
 
