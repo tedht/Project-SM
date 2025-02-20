@@ -40,9 +40,9 @@ speeds to simulate a 3D effect
 
 ## Launching the application
 
-To launch the game, click on the provided game.exe located in the root directory of the project.
+A game.zip file containing a working version of game.exe is provided. Simply extract the file to the root directory, then click on game.exe to run the application.
 
-## Compiling and Running the application
+## Compiling the application
 Note that this project has only been tested on Windows. It is most likely not possible
 to compile it on any other platform.
 
@@ -57,7 +57,7 @@ to compile it on any other platform.
 This project was made using vscode. Simply adapt the .vscode json files (launch.json and tasks.json)
 to correspond with your devices setup of w64devkit (mainly "compilerPath", "midDebuggerPath" and "command").
 
-Then just run the project using the desired build mode (Debug or Run).
+Then just run the project using the desired build type (Debug or Run).
 
 ### Using CMake
 
@@ -69,10 +69,14 @@ mkdir build
 cd build
 ```
 
-Once inside the build directory, run CMake with the following arguments :
+Once inside the build directory, run CMake with the following arguments depending
+on the desired build type:
 ```bash
-cmake -G "MinGW Makefiles" .. 
+cmake -G "MinGW Makefiles" .. -DCMAKE_BUILD_TYPE=Debug
+# OR
+cmake -G "MinGW Makefiles" .. -DCMAKE_BUILD_TYPE=Run
 ```
+From my own testing, you need to execute the command 2 times to generate the makefile.
 
 If all goes well, a Make file will be created in the build directory. All that is
 left to do is to type the following in the console :
@@ -80,10 +84,7 @@ left to do is to type the following in the console :
 make
 ```
 A game.exe file will be created in the build directory. 
-**You must place the game.exe in the root directory of the project, other wise the assets won't load.**
-
-### Using the provided game.exe file
-If you are only interested in running the application, a game.zip file containing a working version of game.exe is provided. Simply extract the file to the root directory, then click on game.exe to run the application.
+**You must place the game.exe in the root directory of the project, other wise the assets won't load upon starting the game.**
 
 ## Authors
 

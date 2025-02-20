@@ -32,7 +32,7 @@ Améliore la profondeur visuelle avec des arrière-plans en défilement parallax
 
 ## Lancer l'application
 
-Pour lancer le jeu, cliquez sur le fichier game.exe fourni situé dans le répertoire racine du projet.
+Un fichier game.zip contenant une version fonctionnelle de game.exe est fourni. Il suffit d'extraire le fichier dans le répertoire racine, puis de cliquer sur game.exe pour exécuter l'application.
 
 ## Compiler et lancer l'application
 Notez que ce projet n'a été testé que sous Windows. Il est très probable qu'il ne soit pas possible de le compiler sur une autre plateforme.
@@ -47,7 +47,7 @@ Notez que ce projet n'a été testé que sous Windows. Il est très probable qu'
 
 Ce projet a été réalisé en utilisant vscode. Adaptez simplement les fichiers json .vscode (launch.json et tasks.json) pour correspondre à la configuration de w64devkit sur votre appareil (principalement "compilerPath", "miDebuggerPath" et "command").
 
-Ensuite, lancez simplement le projet en utilisant le mode de compilation souhaité (Debug ou Run).
+Ensuite, lancez simplement le projet en utilisant le type de compilation souhaité (Debug ou Run).
 
 ### En utilisant CMake
 
@@ -59,10 +59,14 @@ mkdir build
 cd build
 ```
 
-Une fois dans le répertoire de build, exécutez CMake avec les arguments suivants :
+Une fois dans le répertoire de build, exécutez CMake avec les arguments suivants en fonction 
+du type de compilation souhaité:
 ```bash
-cmake -G "MinGW Makefiles" ..
+cmake -G "MinGW Makefiles" .. -DCMAKE_BUILD_TYPE=Debug
+# OU BIEN
+cmake -G "MinGW Makefiles" .. -DCMAKE_BUILD_TYPE=Run
 ```
+D'après mes propres testes, il faut exécuter la commande deux fois pour générer le makefile.
 
 Si tout se passe bien, un fichier Make sera créé dans le répertoire de build. Il ne reste plus qu'à taper la commande suivante dans la console :
 ```bash
@@ -70,10 +74,7 @@ make
 ```
 
 Un fichier game.exe sera créé dans le répertoire de build. 
-**Vous devez placer le game.exe dans le répertoire racine du projet, sinon les assets ne seront pas chargés.**
-
-### En utilisant le fichier game.exe fourni
-Si vous souhaitez uniquement lancer l'application, Un fichier game.zip contenant une version fonctionnelle de game.exe est fourni. Il suffit d'extraire le fichier dans le répertoire racine, puis de cliquer sur game.exe pour exécuter l'application.
+**Vous devez placer le game.exe dans le répertoire racine du projet, sinon les assets ne seront pas chargés une fois avoir lancer le jeu.**
 
 ## Auteurs
 
